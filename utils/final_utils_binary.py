@@ -63,9 +63,9 @@ def plot_feature_maps(input_dataloader, conv_layers: list, device):
         gray_scale = init_gray_scale / feature_map.shape[0]
         processed.append(gray_scale.data.cpu().numpy())
 
-    fig = plt.figure(figsize=(30, 50))
+    fig = plt.figure()
     for i in range(len(processed)):
-        a = fig.add_subplot(5, 4, i+1)
+        a = fig.add_subplot(1, 2, i+1)
         imgplot = plt.imshow(processed[i], cmap='rainbow')
         a.axis("off")
         a.set_title(names[i].split('(')[0], fontsize=30)
@@ -301,8 +301,11 @@ def make_predictions(input_dataloader, input_model, device):
             labels = graph_images['labels'].data.cpu().numpy()
             y_true.extend(labels)
 
-        cfx_matrix = confusion_matrix(y_true, y_pred)
-        ConfusionMatrixDisplay(cfx_matrix).plot(cmap='viridis')
+        if len(input_dataloader) > 1:
+            cfx_matrix = confusion_matrix(y_true, y_pred)
+            ConfusionMatrixDisplay(cfx_matrix).plot(cmap='viridis')
+        else:
+            print(y_pred)
 
 
 def plot_weights(conv_layers):

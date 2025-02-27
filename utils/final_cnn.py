@@ -1,9 +1,9 @@
 import torch.nn as nn
 
 
-class Binnary_CNN(nn.Module):
+class CNN_BINARY_small(nn.Module):
     def __init__(self, dropout_rate):
-        super(Binnary_CNN, self).__init__()
+        super(CNN_BINARY_small, self).__init__()
         self.conv1 = nn.Sequential(
             nn.Conv2d(in_channels=1, out_channels=4, kernel_size=(3, 3), stride=(3, 3), padding=(0, 0)),
             nn.ReLU(),
